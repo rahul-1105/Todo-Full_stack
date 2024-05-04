@@ -26,20 +26,20 @@ const LoginForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const finalData = formData;
-    if (finalData.password.length < 8) {
-      toast.error("Password must be at least 8 characters long", {
-        position: "bottom-left",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-        });
-      return;
-    }
+    // if (finalData.password.length < 8) {
+    //   toast.error("Password must be at least 8 characters long", {
+    //     position: "bottom-left",
+    //     autoClose: 1500,
+    //     hideProgressBar: true,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "colored",
+    //     transition: Bounce,
+    //     });
+    //   return;
+    // }
 
     const res = await axios.post(
       "http://localhost:5000/api/v1/users/login",
@@ -67,7 +67,7 @@ const LoginForm = () => {
         theme: "colored",
         transition: Bounce,
         });
-      navigate("/");
+      navigate("/todos");
     } else {
       toast.error(res.data.message, {
         position: "bottom-left",

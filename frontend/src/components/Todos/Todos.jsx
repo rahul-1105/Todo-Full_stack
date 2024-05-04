@@ -2,10 +2,10 @@ import Todo from "../Todo/Todo";
 import { useSelector } from "react-redux";
 
 const Todos = () => {
-    const array = useSelector((state) => state.todos.todos);
-    // console.log(array);
+  const array = useSelector((state) => state.todos.todos);
+  // console.log(array);
 
-  return (
+  return(
     <div
       className={
         array.length === 0

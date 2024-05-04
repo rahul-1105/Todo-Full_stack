@@ -7,7 +7,7 @@ const Navbar = () => {
   const navLinks = [
     { title: "Home", path: "/" },
     { title: "About", path: "/about" },
-    { title: "Todo", path: "/todo" },
+    { title: "Todo", path: "/todos" },
   ];
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);

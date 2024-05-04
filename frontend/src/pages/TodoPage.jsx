@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import TodoForm from "../components/form/TodoForm";
 import { useDispatch, useSelector } from "react-redux";
 import { closePopup, openPopup } from "../redux/slice/PopupSlice";
@@ -6,9 +6,14 @@ import { IoMdClose } from "react-icons/io";
 import Todos from "../components/Todos/Todos";
 import axios from "axios";
 import { addTodo } from "../redux/slice/TodosSlice";
+import { CiLock } from "react-icons/ci";
+import Loader from "../components/loader/Loader";
 
 const TodoPage = () => {
   const isOpen = useSelector((state) => state.popup.isOpen);
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const [loading, setLoading] = useState(false);
   // console.log(isOpen);
 
   const dispatch = useDispatch();
@@ -32,10 +37,17 @@ const TodoPage = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     getTodos();
+    setLoading(false);
+    // console.log("useEffect");
   }, []);
 
-  return (
+  return loading ? (
+    <>
+      <Loader />
+    </>
+  ) : (
     <>
       {/* Popup add todo form */}
       <div
@@ -51,17 +63,33 @@ const TodoPage = () => {
         <TodoForm />
       </div>
       <div>
-        <button
-          className="rounded-full h-[60px] w-[60px] border text-3xl bg-purple-700 text-white fixed bottom-8 right-8"
-          onClick={() => {
-            dispatch(openPopup());
-          }}>
-          +
-        </button>
+        {isLoggedIn &&
+          (console.log("isLoggedIn", isLoggedIn),
+          (
+            <button
+              className="rounded-full h-[60px] w-[60px] border text-3xl bg-purple-700 text-white fixed bottom-8 right-8"
+              onClick={() => {
+                dispatch(openPopup());
+              }}>
+              +
+            </button>
+          ))}
       </div>
 
-      <Todos />
+      {!isLoggedIn ? (
+        <div className="h-full flex flex-col gap-4 justify-center items-center">
+          <span className="text-6xl text-gray-800">
+            <CiLock />
+          </span>
+          <h1 className="text-4xl text-center text-gray-800">
+            Please Login <br /> to see your Todos
+          </h1>
+        </div>
+      ) : (
+        <Todos />
+      )}
     </>
+    
   );
 };
 
