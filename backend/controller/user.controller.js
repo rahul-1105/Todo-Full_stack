@@ -4,12 +4,13 @@ import bcrypt from "bcrypt";
 // register controller
 export const signup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
+    const name = `${firstName} ${lastName}`;
     // check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "Email already exists.",
       });
@@ -55,7 +56,7 @@ export const login = async (req, res) => {
     // check if user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "Email not registered. Please sign up.",
       });
@@ -64,7 +65,7 @@ export const login = async (req, res) => {
     // compare password
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "Invalid Password.",
       });

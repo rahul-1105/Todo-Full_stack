@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { changeFormType } from "../../redux/slice/ModalSlice";
 import { useDispatch } from "react-redux";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import axios from "axios";
+import { Bounce, toast } from "react-toastify";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -24,26 +26,77 @@ const SignupForm = () => {
     });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const finalData = formData;
     if (finalData.password !== finalData.confirmPassword) {
-      alert("Password and Confirm Password do not match");
+      toast.error("Password and Confirm Password do not match", {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
       return;
     }
     if (finalData.password.length < 8) {
-      alert("Password must be at least 8 characters long");
+      toast.warn("Password and Confirm Password do not match", {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
       return;
     }
 
-    console.log(finalData);
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
+    const res = await axios.post("http://localhost:5000/api/v1/users/signup", finalData);
+    // console.log(res.data);
+    const success = res.data.success;
+    if (success) {
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      dispatch(changeFormType("login"));
+      toast.success(res.data.message, {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
+    } else {
+      toast.error(res.data.message, {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
+    }
+
+    // console.log(finalData);
+    
   };
 
   return (

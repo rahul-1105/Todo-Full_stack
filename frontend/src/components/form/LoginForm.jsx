@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import Button from "../button/Button";
 import { useDispatch } from "react-redux";
-import { changeFormType } from "../../redux/slice/ModalSlice";
+import { changeFormType, closeModal } from "../../redux/slice/ModalSlice";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../redux/slice/AuthSlice";
+import { Bounce, toast } from "react-toastify";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -19,18 +23,64 @@ const LoginForm = () => {
     // console.log(e.taget.value);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const finalData = formData;
     if (finalData.password.length < 8) {
-      alert("Password must be at least 8 characters long");
+      toast.error("Password must be at least 8 characters long", {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
       return;
     }
-    console.log(finalData);
-    setFormData({
-      email: "",
-      password: "",
-    });
+
+    const res = await axios.post(
+      "http://localhost:5000/api/v1/users/login",
+      finalData
+    );
+    // console.log(res.data);
+    const success = res.data.success;
+    if (success) {
+      setFormData({
+        email: "",
+        password: "",
+      });
+      dispatch(closeModal());
+      dispatch(login());
+      const userId = res.data.data._id;
+      sessionStorage.setItem("userId", userId);
+      toast.success(res.data.message, {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
+      navigate("/");
+    } else {
+      toast.error(res.data.message, {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
+    }
   };
 
   return (

@@ -19,8 +19,8 @@ const Modal = () => {
       <div
         className={
           !isOpen
-            ? " absolute opacity-0 -z-50 duration-[.3s] transition-all"
-            : "modal-overlay min-h-[calc(100vh-0px)] bg-black opacity-[.3] absolute inset-0 cursor-pointer z-50 duration-[.3s] transition-all"
+            ? " fixed opacity-0 -z-50 duration-[.3s] transition-all"
+            : "modal-overlay min-h-[calc(100vh-0px)] bg-black opacity-[.3] fixed inset-0 cursor-pointer z-50 duration-[.3s] transition-all"
         }
         onClick={() => {
           dispatch(closeModal());
@@ -30,11 +30,11 @@ const Modal = () => {
       <div
         className={
           !isOpen
-            ? "absolute opacity-0 -z-50 duration-[.3s] transition-all "
-            : "bg-white rounded-xl overflow-hidden absolute opacity-100 z-50 duration-[.3s] transition-all"
+            ? "fixed opacity-0 -z-50 duration-[.3s] transition-all "
+            : "bg-white rounded-xl overflow-hidden fixed opacity-100 z-50 duration-[.3s] transition-all"
         }
         style={{ top: "50%", left: "50%", transform: "translate(-50%,-50%)" }}>
-        <div className="min-h-[400px] min-w-[400px] px-4 py-12 relative flex flex-col items-center justify-center border-2">
+        <div className="min-h-[400px] min-w-[400px] px-6 py-12 relative flex flex-col items-center justify-center border-2">
           <button
             className="absolute top-2 right-2 text-2xl text-gray-800"
             onClick={() => {

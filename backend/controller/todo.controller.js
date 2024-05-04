@@ -5,10 +5,11 @@ import User from "../models/user.models.js";
 // create todo
 export const createTodo = async (req, res) => {
   try {
-    const { title, description, email } = req.body;
+    const { id } = req.params;
+    const { title, description } = req.body;
 
     // check if the user exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findById(id);
     if (!existingUser) {
       return res.status(404).json({
         success: false,
@@ -17,23 +18,24 @@ export const createTodo = async (req, res) => {
       });
     }
 
-    // create new todo
+    // create the newTodo
     const newTodo = new Todo({
       title,
       description,
-      user: existingUser._id,
+      user: id,
     });
 
-    // save the todo
-    const todo = await newTodo.save();
-    res.status(201).json({
+    // save the newTodo
+    const savedTodo = await newTodo.save();
+
+    // add the todo to the user
+    await User.findByIdAndUpdate(id, { $push: { todos: savedTodo._id } });
+
+    res.status(200).json({
       success: true,
-      data: todo,
+      data: savedTodo,
       message: "Todo created successfully.",
     });
-
-    existingUser.todos.push(todo);
-    existingUser.save();
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -88,9 +90,12 @@ export const updateTodo = async (req, res) => {
 export const deleteTodo = async (req, res) => {
   try {
     const { id } = req.params;
-    const { email } = req.body;
+    const { userId } = req.body;
+    console.log(userId);
     // check if the user exists
-    const existingUser = await User.findOneAndUpdate({ email }, { $pull: { todos: id } });
+    const existingUser = await User.findByIdAndUpdate(userId, {
+      $pull: { todos: id },
+    });
     if (!existingUser) {
       return res.status(404).json({
         success: false,
@@ -113,29 +118,28 @@ export const deleteTodo = async (req, res) => {
   }
 };
 
-
 // get all todos
 
 export const getTodos = async (req, res) => {
-    try {
-        const {id} = req.params;
-        const todos = await Todo.find({user: id})
-        if (todos.length === 0) {
-            return res.status(200).json({
-            success: true,
-            message: "No Todos",
-            });
-        }
-        res.status(200).json({
+  try {
+    const { id } = req.params;
+    const todos = await Todo.find({ user: id });
+    if (todos.length === 0) {
+      return res.status(200).json({
         success: true,
-        data: todos,
-        message: "Todos fetched successfully.",
-        });
-    } catch (err) {
-        res.status(500).json({
-        success: false,
-        data: err.message,
-        message: "Internal server error.",
-        });
+        message: "No Todos",
+      });
     }
-}
+    res.status(200).json({
+      success: true,
+      data: todos,
+      message: "Todos fetched successfully.",
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      data: err.message,
+      message: "Internal server error.",
+    });
+  }
+};
