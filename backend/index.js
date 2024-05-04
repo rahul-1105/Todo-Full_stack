@@ -19,10 +19,13 @@ app.use(cors());
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/todos", todoRoutes);
 
+app.get("/", (req, res) => { res.send("Express on Vercel"); });
+
 //start server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
 
 // connect to database
 connectDB();
