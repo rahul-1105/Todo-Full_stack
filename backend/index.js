@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "./config/database.mjs";
-import userRoutes from "./routes/user.routes.mjs";
-import todoRoutes from "./routes/todo.routes.mjs";
+import connectDB from "./config/database.js";
+import userRoutes from "./routes/user.routes.js";
+import todoRoutes from "./routes/todo.routes.js";
 import cors from "cors";
 
 const app = express();

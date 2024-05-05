@@ -1,6 +1,5 @@
-import { get } from "mongoose";
-import Todo from "../models/todo.models.mjs";
-import User from "../models/user.models.mjs";
+import Todo from "../models/todo.models.js";
+import User from "../models/user.models.js";
 
 // create todo
 export const createTodo = async (req, res) => {

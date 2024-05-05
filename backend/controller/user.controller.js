@@ -1,4 +1,4 @@
-import User from "../models/user.models.mjs";
+import User from "../models/user.models.js";
 import bcrypt from "bcrypt";
 
 // register controller
