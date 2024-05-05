@@ -5,7 +5,7 @@ const dbUrl = process.env.DATABASE_URL;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(dbUrl);
+    await mongoose.connect(`${dbUrl}TodoDatabase`);
     console.log("MongoDB connected...");
   } catch (err) {
     console.log(err);
