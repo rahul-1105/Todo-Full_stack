@@ -4,6 +4,7 @@ import connectDB from "./config/database.js";
 import userRoutes from "./routes/user.routes.js";
 import todoRoutes from "./routes/todo.routes.js";
 import cors from "cors";
+import { getTodos } from "./controller/todo.controller.js";
 
 const app = express();
 
@@ -19,9 +20,7 @@ app.use(cors());
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/todos", todoRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Express on Vercel");
-});
+app.get("/api/v1/todos", getTodos);
 
 //start server
 app.listen(port, () => {
