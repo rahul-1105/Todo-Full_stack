@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
-    "server": "nodemon index.js"
+    "server": "nodemon index.mjs"
   },
   "keywords": [],
   "author": "",
