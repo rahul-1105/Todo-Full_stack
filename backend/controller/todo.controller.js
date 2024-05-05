@@ -127,6 +127,7 @@ export const getTodos = async (req, res) => {
       return res.status(200).json({
         success: true,
         message: "No Todos",
+        data: [],
       });
     }
     res.status(200).json({
