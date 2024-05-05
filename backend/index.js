@@ -23,10 +23,11 @@ app.get("/", (req, res) => {
   res.send("Express on Vercel");
 });
 
-connectDB();
-//start server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
 // connect to database
+connectDB().then(() => {
+  //start server
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+})
+
