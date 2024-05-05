@@ -25,7 +25,7 @@ const Todo = ({ todo, todoId }) => {
           className="py-2 px-4 bg-red-600 text-white rounded-md "
           onClick={async () => {
             const res = await axios.delete(
-              `http://localhost:5000/api/v1/todos/delete-todo/${todoId}`,
+              `https://vidrohi-todo-api.vercel.app/api/v1/todos/delete-todo/${todoId}`,
               {
                 data: {
                   userId: sessionStorage.getItem("userId"),

@@ -10,6 +10,7 @@ const SignupForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -44,7 +45,7 @@ const SignupForm = () => {
       return;
     }
     if (finalData.password.length < 8) {
-      toast.warn("Password and Confirm Password do not match", {
+      toast.warn("Password length should be atleast 8. ", {
         position: "bottom-left",
         autoClose: 1500,
         hideProgressBar: true,
@@ -58,10 +59,12 @@ const SignupForm = () => {
       return;
     }
 
-    const res = await axios.post("http://localhost:5000/api/v1/users/signup", finalData);
+    setLoading(true);
+    const res = await axios.post("https://vidrohi-todo-api.vercel.app/api/v1/users/signup", finalData);
     // console.log(res.data);
     const success = res.data.success;
     if (success) {
+      setLoading(false);
       setFormData({
         firstName: "",
         lastName: "",
@@ -82,6 +85,7 @@ const SignupForm = () => {
         transition: Bounce,
         });
     } else {
+      setLoading(false);
       toast.error(res.data.message, {
         position: "bottom-left",
         autoClose: 1500,
@@ -206,7 +210,7 @@ const SignupForm = () => {
           </div>
         </div>
 
-        <button className="px-2 py-3 bg-purple-700 rounded text-white ">
+        <button className={loading ? "px-2 py-3 bg-purple-700 rounded text-white cursor-wait": "px-2 py-3 bg-purple-700 rounded text-white "}>
           Register
         </button>
 

@@ -4,6 +4,7 @@ import { addTodo, updateTodo } from "../../redux/slice/TodosSlice";
 import { closePopup } from "../../redux/slice/PopupSlice";
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
+import { setLoading } from "../../redux/slice/LoadingSlice";
 
 const TodoForm = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const TodoForm = () => {
 
   const array = useSelector((state) => state.todos.todos);
   const todoId = useSelector((state) => state.popup.id);
-  // let userId = useSelector((state) => state.auth.user);
+
   // console.log(todoId);
 
   useEffect(() => {
@@ -48,14 +49,19 @@ const TodoForm = () => {
         title: formData.title,
         description: formData.description,
       };
-      dispatch(updateTodo(updatedTodo));
+      dispatch(setLoading(true));
       axios
-        .put(`http://localhost:5000/api/v1/todos/update-todo/${todoId}`, {
-          title: formData.title,
-          description: formData.description,
-          completed: false,
-        })
+        .put(
+          `https://vidrohi-todo-api.vercel.app/api/v1/todos/update-todo/${todoId}`,
+          {
+            title: formData.title,
+            description: formData.description,
+            completed: false,
+          }
+        )
         .then((res) => {
+          dispatch(updateTodo(updatedTodo));
+          dispatch(setLoading(false));
           // console.log(res.data);
           toast.success(res.data.message, {
             position: "bottom-left",
@@ -67,14 +73,20 @@ const TodoForm = () => {
             progress: undefined,
             theme: "colored",
             transition: Bounce,
-            });
+          });
         });
     } else {
+      dispatch(setLoading(true));
       axios
-        .post(`http://localhost:5000/api/v1/todos/create-todo/${sessionStorage.getItem("userId")}`, {
-          title: formData.title,
-          description: formData.description,
-        })
+        .post(
+          `https://vidrohi-todo-api.vercel.app/api/v1/todos/create-todo/${sessionStorage.getItem(
+            "userId"
+          )}`,
+          {
+            title: formData.title,
+            description: formData.description,
+          }
+        )
         .then((res) => {
           // console.log(res.data);
           toast.success(res.data.message, {
@@ -87,7 +99,7 @@ const TodoForm = () => {
             progress: undefined,
             theme: "colored",
             transition: Bounce,
-            });
+          });
           dispatch(
             addTodo({
               _id: res.data.data._id,
@@ -95,14 +107,14 @@ const TodoForm = () => {
               description: res.data.data.description,
             })
           );
+          dispatch(setLoading(false));
         });
     }
     setFormData({
       title: "",
       description: "",
-    })
+    });
     dispatch(closePopup());
-
   };
 
   return (

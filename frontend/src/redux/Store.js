@@ -3,6 +3,8 @@ import modalReducer from "./slice/ModalSlice"
 import popupReducer from "./slice/PopupSlice"
 import todosReducer from "./slice/TodosSlice"
 import authReducer from "./slice/AuthSlice"
+import loadingReducer from "./slice/LoadingSlice"
+
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +12,6 @@ export const store = configureStore({
     popup: popupReducer,
     todos: todosReducer,
     auth: authReducer,
+    loading: loadingReducer,
   },
 });

@@ -7,26 +7,27 @@ import Todos from "../components/Todos/Todos";
 import axios from "axios";
 import { addTodo } from "../redux/slice/TodosSlice";
 import { CiLock } from "react-icons/ci";
-import Loader from "../components/loader/Loader";
+import { setLoading } from "../redux/slice/LoadingSlice";
 
 const TodoPage = () => {
   const isOpen = useSelector((state) => state.popup.isOpen);
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const [loading, setLoading] = useState(false);
   // console.log(isOpen);
 
   const dispatch = useDispatch();
 
   const getTodos = async () => {
     if (sessionStorage.getItem("userId")) {
+      dispatch(setLoading(true));
       await axios
         .get(
-          `http://localhost:5000/api/v1/todos/get-todos/${sessionStorage.getItem(
+          `https://vidrohi-todo-api.vercel.app/api/v1/todos/get-todos/${sessionStorage.getItem(
             "userId"
           )}`
         )
         .then((res) => {
+          dispatch(setLoading(false));
           // console.log(res.data.data);
           const todos = res.data.data;
           todos.forEach((todo) => {
@@ -36,18 +37,12 @@ const TodoPage = () => {
     }
   };
 
-  useEffect(() => {
-    setLoading(true);
+   useEffect(() => {
     getTodos();
-    setLoading(false);
-    // console.log("useEffect");
   }, []);
 
-  return loading ? (
-    <>
-      <Loader />
-    </>
-  ) : (
+
+  return(
     <>
       {/* Popup add todo form */}
       <div

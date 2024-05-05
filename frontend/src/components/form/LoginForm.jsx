@@ -10,6 +10,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -41,13 +42,15 @@ const LoginForm = () => {
     //   return;
     // }
 
+    setLoading(true);
     const res = await axios.post(
-      "http://localhost:5000/api/v1/users/login",
+      "https://vidrohi-todo-api.vercel.app/api/v1/users/login",
       finalData
     );
     // console.log(res.data);
     const success = res.data.success;
     if (success) {
+      setLoading(false);
       setFormData({
         email: "",
         password: "",
@@ -69,6 +72,7 @@ const LoginForm = () => {
         });
       navigate("/todos");
     } else {
+      setLoading(false);
       toast.error(res.data.message, {
         position: "bottom-left",
         autoClose: 1500,
@@ -118,7 +122,7 @@ const LoginForm = () => {
           />
         </div>
 
-        <button className="px-2 py-3 bg-purple-700 rounded text-white ">
+        <button className={loading ? "px-2 py-3 bg-purple-700 rounded text-white cursor-wait": "px-2 py-3 bg-purple-700 rounded text-white "}>
           Login
         </button>
 

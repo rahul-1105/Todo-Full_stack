@@ -1,11 +1,15 @@
 import Todo from "../Todo/Todo";
 import { useSelector } from "react-redux";
+import Loader from "../loader/Loader";
 
 const Todos = () => {
   const array = useSelector((state) => state.todos.todos);
-  // console.log(array);
+  const loading = useSelector((state) => state.loading.loading);
+  console.log(array);
 
-  return(
+  return loading ? (
+    (console.log("loading", loading), (<Loader />))
+  ) : (
     <div
       className={
         array.length === 0
