@@ -37,12 +37,11 @@ const TodoPage = () => {
     }
   };
 
-   useEffect(() => {
+  useEffect(() => {
     getTodos();
   }, []);
 
-
-  return(
+  return (
     <>
       {/* Popup add todo form */}
       <div
@@ -58,17 +57,15 @@ const TodoPage = () => {
         <TodoForm />
       </div>
       <div>
-        {isLoggedIn &&
-          (console.log("isLoggedIn", isLoggedIn),
-          (
-            <button
-              className="rounded-full h-[60px] w-[60px] border text-3xl bg-purple-700 text-white fixed bottom-8 right-8"
-              onClick={() => {
-                dispatch(openPopup());
-              }}>
-              +
-            </button>
-          ))}
+        {isLoggedIn && (
+          <button
+            className="rounded-full h-[60px] w-[60px] border text-3xl bg-purple-700 text-white fixed bottom-8 right-8"
+            onClick={() => {
+              dispatch(openPopup());
+            }}>
+            +
+          </button>
+        )}
       </div>
 
       {!isLoggedIn ? (
@@ -84,7 +81,6 @@ const TodoPage = () => {
         <Todos />
       )}
     </>
-    
   );
 };
 

@@ -5,10 +5,10 @@ import Loader from "../loader/Loader";
 const Todos = () => {
   const array = useSelector((state) => state.todos.todos);
   const loading = useSelector((state) => state.loading.loading);
-  console.log(array);
+  // console.log(array);
 
   return loading ? (
-    (console.log("loading", loading), (<Loader />))
+    <Loader />
   ) : (
     <div
       className={
