@@ -8,10 +8,11 @@ import { Bounce, toast } from "react-toastify";
 const Todo = ({ todo, todoId }) => {
   const dispatch = useDispatch();
 
+
   // console.log(id);
   return (
-    <div className="h-[280px] p-4 grid grid-rows-[auto_1fr_auto] gap-4 shadow-[0px_5px_15px_rgba(0,0,0,0.35)] rounded-lg">
-      <h4 className="text-3xl">{todo.title}</h4>
+    <div className="max-h-[280px] p-4 grid grid-rows-[auto_minmax(30px,_1fr)_auto] gap-4 shadow-[0px_5px_15px_rgba(0,0,0,0.35)] rounded-lg">
+      <h4 className="text-3xl max-sm:text-2xl">{todo.title}</h4>
       <div className="overflow-y-scroll scroll-smooth text-[15px] tracking-wide">
         {todo.description}
       </div>

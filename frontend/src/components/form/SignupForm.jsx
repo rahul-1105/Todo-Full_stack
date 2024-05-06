@@ -105,8 +105,8 @@ const SignupForm = () => {
 
   return (
     <>
-      <form className="w-full flex flex-col gap-6" onSubmit={submitHandler}>
-        <div className="flex gap-4">
+      <form className="w-full flex flex-col gap-6 max-md:gap-2" onSubmit={submitHandler}>
+        <div className="flex max-md:flex-col gap-4 max-md:gap-2">
           <div className="flex flex-col gap-1">
             <label htmlFor="firstName" className="text-[12px] font-medium">
               First Name <span className="text-sm text-[red] ">*</span>
@@ -156,7 +156,7 @@ const SignupForm = () => {
           />
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex max-md:flex-col gap-4 max-md:gap-2">
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-[12px] font-medium">
               Password <span className="text-sm text-[red] ">*</span>
@@ -167,7 +167,7 @@ const SignupForm = () => {
                 id="password"
                 name="password"
                 value={formData.password}
-                className="border border-neutral-500 rounded px-2 py-3 text-sm outline-none placeholder:text-sm placeholder:font-normal"
+                className="border border-neutral-500 w-full rounded px-2 py-3 text-sm outline-none placeholder:text-sm placeholder:font-normal"
                 placeholder="Enter Password"
                 onChange={changeHandler}
                 required
@@ -192,7 +192,7 @@ const SignupForm = () => {
                 id="confirmPassword"
                 name="confirmPassword"
                 value={formData.confirmPassword}
-                className="border border-neutral-500 rounded px-2 py-3 text-sm outline-none placeholder:text-sm placeholder:font-normal"
+                className="border border-neutral-500 w-full rounded px-2 py-3 text-sm outline-none placeholder:text-sm placeholder:font-normal"
                 placeholder="Enter Password"
                 onChange={changeHandler}
                 required
@@ -210,7 +210,7 @@ const SignupForm = () => {
           </div>
         </div>
 
-        <button className={loading ? "px-2 py-3 bg-purple-700 rounded text-white cursor-wait": "px-2 py-3 bg-purple-700 rounded text-white "}>
+        <button className={loading ? "px-2 py-3 bg-purple-700 rounded max-md:mt-4 text-white cursor-wait": "px-2 py-3 bg-purple-700 rounded max-md:mt-4 text-white "}>
           Register
         </button>
 

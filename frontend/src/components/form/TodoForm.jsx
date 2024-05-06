@@ -120,7 +120,7 @@ const TodoForm = () => {
   return (
     <>
       <form
-        className="rounded-xl shadow-[0px_5px_15px_rgba(0,0,0,0.35)] p-4 border w-full flex flex-col gap-4 relative"
+        className="rounded-xl shadow-[0px_5px_15px_rgba(0,0,0,0.35)] p-4 max-sm:p-3 border w-full flex flex-col gap-4 relative"
         onSubmit={submitHandler}>
         <h1 className="text-xl font-semibold ">
           {todoId ? "Update Todo" : "Add Todo"}

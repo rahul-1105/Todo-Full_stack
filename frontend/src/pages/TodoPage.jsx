@@ -45,7 +45,7 @@ const TodoPage = () => {
     <>
       {/* Popup add todo form */}
       <div
-        className={isOpen ? "w-[60%] mx-auto my-4 fixed bg-white" : "hidden"}
+        className={isOpen ? "w-[60%] max-md:w-[90%] fixed bg-white" : "hidden"}
         style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
         <button
           className="absolute top-2 right-2 z-50 text-2xl text-gray-800 "
