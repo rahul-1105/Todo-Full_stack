@@ -5,6 +5,7 @@ import { logout } from "../../redux/slice/AuthSlice";
 import { Bounce, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { emptyTodos } from "../../redux/slice/TodosSlice";
+import { closeNav } from "../../redux/slice/ToggleNavSlice";
 
 const Button = ({ name }) => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const Button = ({ name }) => {
 
   return (
     <button
-      className="py-3 px-6 bg-purple-700 text-white rounded-md "
+      className="py-3 px-6 max-lg:py-2 max-lg:px-4 max-md:py-3 max-md:px-6 bg-purple-700 text-white rounded-md max-md:rounded "
       onClick={() => {
         if (name === "Logout") {
           return (
@@ -28,6 +29,7 @@ const Button = ({ name }) => {
               theme: "colored",
               transition: Bounce,
             }),
+            dispatch(closeNav()),
             dispatch(logout()),
             dispatch(emptyTodos()),
             navigate("/")
@@ -38,6 +40,7 @@ const Button = ({ name }) => {
         } else {
           dispatch(openModal("signup"));
         }
+        dispatch(closeNav());
       }}>
       {name}
     </button>

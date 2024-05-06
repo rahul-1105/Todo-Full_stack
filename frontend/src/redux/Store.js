@@ -4,6 +4,7 @@ import popupReducer from "./slice/PopupSlice"
 import todosReducer from "./slice/TodosSlice"
 import authReducer from "./slice/AuthSlice"
 import loadingReducer from "./slice/LoadingSlice"
+import toggleNavReducer from "./slice/ToggleNavSlice"
 
 
 export const store = configureStore({
@@ -13,5 +14,6 @@ export const store = configureStore({
     todos: todosReducer,
     auth: authReducer,
     loading: loadingReducer,
+    toggleNav: toggleNavReducer,
   },
 });

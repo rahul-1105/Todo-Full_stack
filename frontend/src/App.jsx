@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <>
-      <header className="px-12 border-b-[.5px] border-gray-300 ">
+      <header className="px-12 max-lg:px-8 max-sm:px-4 border-b-[.5px] border-gray-300 ">
         <Navbar />
       </header>
       <Modal />

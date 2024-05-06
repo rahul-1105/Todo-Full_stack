@@ -20,7 +20,7 @@ const Modal = () => {
         className={
           !isOpen
             ? " fixed opacity-0 -z-50 duration-[.3s] transition-all"
-            : "modal-overlay min-h-[calc(100vh-0px)] bg-black opacity-[.3] fixed inset-0 cursor-pointer z-50 duration-[.3s] transition-all"
+            : "modal-overlay min-h-screen bg-black opacity-[.3] fixed inset-0 cursor-pointer z-50 duration-[.3s] transition-all "
         }
         onClick={() => {
           dispatch(closeModal());

@@ -73,9 +73,9 @@ const TodoPage = () => {
           <span className="text-6xl text-gray-800">
             <CiLock />
           </span>
-          <h1 className="text-4xl text-center text-gray-800">
+          <h3 className="text-4xl text-center text-gray-800 max-sm:text-3xl">
             Please Login <br /> to see your Todos
-          </h1>
+          </h3>
         </div>
       ) : (
         <Todos />
