@@ -37,7 +37,7 @@ const App = () => {
           const todos = res.data.data;
           todos.forEach((todo) => {
             dispatch(addTodo(todo));
-            console.log("useEffect");
+            // console.log("useEffect");
           });
         });
     }

@@ -15,8 +15,8 @@ const Todos = () => {
         array.length === 0
           ? "h-full flex justify-center items-center"
           : array.length <= 2
-          ? " p-12 grid grid-cols-[repeat(auto-fit,_minmax(300px,_450px))] gap-8"
-          : " p-12 max-sm:p-4 grid grid-cols-[repeat(auto-fit,_minmax(300px,_450px))] max-lg:grid-cols-1 gap-8 justify-center max-lg:justify-normal"
+          ? " p-8 max-sm:px-4 max-sm:py-8 grid grid-cols-[repeat(auto-fit,_minmax(0,_464px))] gap-8 max-lg:grid-cols-1 max-lg:justify-normal"
+          : " p-8 max-sm:px-4 max-sm:py-8 grid grid-cols-[repeat(auto-fit,_minmax(_464px,_1fr))] max-lg:grid-cols-1 gap-8 justify-center max-lg:justify-normal"
       }>
       {array.length === 0 ? (
         <h1 className="text-4xl text-gray-800">No Todos</h1>
