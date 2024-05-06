@@ -69,7 +69,7 @@ const LoginForm = () => {
         progress: undefined,
         theme: "colored",
         transition: Bounce,
-        });
+      });
       navigate("/todos");
     } else {
       setLoading(false);
@@ -83,7 +83,7 @@ const LoginForm = () => {
         progress: undefined,
         theme: "colored",
         transition: Bounce,
-        });
+      });
     }
   };
 
@@ -122,7 +122,12 @@ const LoginForm = () => {
           />
         </div>
 
-        <button className={loading ? "px-2 py-3 bg-purple-700 rounded text-white cursor-wait": "px-2 py-3 bg-purple-700 rounded text-white "}>
+        <button
+          className={
+            loading
+              ? "px-2 py-3 bg-purple-700 rounded text-white cursor-wait"
+              : "px-2 py-3 bg-purple-700 rounded text-white "
+          }>
           Login
         </button>
 

@@ -4,42 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { closePopup, openPopup } from "../redux/slice/PopupSlice";
 import { IoMdClose } from "react-icons/io";
 import Todos from "../components/Todos/Todos";
-import axios from "axios";
-import { addTodo } from "../redux/slice/TodosSlice";
 import { CiLock } from "react-icons/ci";
-import { setLoading } from "../redux/slice/LoadingSlice";
 
 const TodoPage = () => {
   const isOpen = useSelector((state) => state.popup.isOpen);
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  // console.log(isOpen);
+  // console.log(isLoggedIn);
 
   const dispatch = useDispatch();
-
-  const getTodos = async () => {
-    if (sessionStorage.getItem("userId")) {
-      dispatch(setLoading(true));
-      await axios
-        .get(
-          `https://vidrohi-todo-api.vercel.app/api/v1/todos/get-todos/${sessionStorage.getItem(
-            "userId"
-          )}`
-        )
-        .then((res) => {
-          dispatch(setLoading(false));
-          // console.log(res.data.data);
-          const todos = res.data.data;
-          todos.forEach((todo) => {
-            dispatch(addTodo(todo));
-          });
-        });
-    }
-  };
-
-  useEffect(() => {
-    getTodos();
-  }, []);
 
   return (
     <>
