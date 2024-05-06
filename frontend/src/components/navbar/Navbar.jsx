@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Button from "../button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -14,14 +14,16 @@ const Navbar = () => {
   ];
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const toggleNav = useSelector(state => state.toggleNav.toggleNav)
+  const toggleNav = useSelector((state) => state.toggleNav.toggleNav);
   // console.log(isLoggedIn);
 
   const dispatch = useDispatch();
 
   return (
     <div className="h-[70px] flex justify-between items-center gap-4">
-      <div className="text-4xl font-bold text-purple-800">Todo</div>
+      <Link to="/">
+        <h1 className="text-4xl font-bold text-purple-800">Todo</h1>
+      </Link>
       <button
         onClick={() => {
           dispatch(openNav("show-nav"));
@@ -42,7 +44,10 @@ const Navbar = () => {
             <li key={index}>
               <NavLink
                 to={link.path}
-                className="hover:text-purple-800 duration-300 transition-all ease-in-out">
+                className="hover:text-purple-800 duration-300 transition-all ease-in-out"
+                onClick={() => {
+                  dispatch(closeNav("nav-close"));
+                }}>
                 {link.title}
               </NavLink>
             </li>
